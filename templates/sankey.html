@@ -1,0 +1,127 @@
+<html>
+<head>
+
+    <title>Python Flask Bucket List App</title>
+
+</head>
+<body>
+  <h1> Key in your numbers below: </h1>
+  <form>
+      <label for="DakotaToSect2p1">Number from Dakota to Section 2.1:</label>
+      <input type="text" name="DakotaToSect2p1" id='DakotaToSect2p1' value="100" autofocus>
+      <br>
+      <label for="DakotaToSect2p2">Number from Dakota to Section 2.2:</label>
+      <input type="text" name="DakotaToSect2p2" id='DakotaToSect2p2' value="100" >
+      <br>
+      <label for="DakotaToSect2p3">Number from Dakota to Section 2.3:</label>
+      <input type="text" name="DakotaToSect2p3" id='DakotaToSect2p3' value="100" >
+      <br>
+      <label for="DakotaToSect2p4">Number from Dakota to Section 2.4:</label>
+      <input type="text" name="DakotaToSect2p4" id='DakotaToSect2p4' value="100" >
+      <br>
+      <br>
+      <label for="KallangToSect2p1">Number from Kallang to Section 2.1:</label>
+      <input type="text" name="KallangToSect2p1" id='KallangToSect2p1' value="100" autofocus>
+      <br>
+      <label for="KallangToSect2p2">Number from Kallang to Section 2.2:</label>
+      <input type="text" name="KallangToSect2p2" id='KallangToSect2p2' value="100" >
+      <br>
+      <label for="KallangToSect2p3">Number from Kallang to Section 2.3:</label>
+      <input type="text" name="KallangToSect2p3" id='KallangToSect2p3' value="100" >
+      <br>
+      <label for="KallangToSect2p4">Number from Kallang to Section 2.4:</label>
+      <input type="text" name="KallangToSect2p4" id='KallangToSect2p4' value="100" >
+      <br>
+      <br>
+      <label for="MountbattenToSect2p1">Number from Mountbatten to Section 2.1:</label>
+      <input type="text" name="MountbattenToSect2p1" id='MountbattenToSect2p1' value="100" autofocus>
+      <br>
+      <label for="MountbattenToSect2p2">Number from Mountbatten to Section 2.2:</label>
+      <input type="text" name="MountbattenToSect2p2" id='MountbattenToSect2p2' value="100" >
+      <br>
+      <label for="MountbattenToSect2p3">Number from Mountbatten to Section 2.3:</label>
+      <input type="text" name="MountbattenToSect2p3" id='MountbattenToSect2p3' value="100" >
+      <br>
+      <label for="MountbattenToSect2p4">Number from Mountbatten to Section 2.4:</label>
+      <input type="text" name="MountbattenToSect2p4" id='MountbattenToSect2p4' value="100" >
+      <br>
+      <br>
+      <label for="StadiumToSect2p1">Number from Stadium to Section 2.1:</label>
+      <input type="text" name="StadiumToSect2p1" id='StadiumToSect2p1' value="100" autofocus>
+      <br>
+      <label for="StadiumToSect2p2">Number from Stadium to Section 2.2:</label>
+      <input type="text" name="StadiumToSect2p2" id='StadiumToSect2p2' value="100" >
+      <br>
+      <label for="StadiumToSect2p3">Number from Stadium to Section 2.3:</label>
+      <input type="text" name="StadiumToSect2p3" id='StadiumToSect2p3' value="100" >
+      <br>
+      <label for="StadiumToSect2p4">Number from Stadium to Section 2.4:</label>
+      <input type="text" name="StadiumToSect2p4" id='StadiumToSect2p4' value="100" >
+      <br>
+      <!-- <input type="submit" value="Submit"> -->
+
+      <input type="button" value="submit" onclick="drawChart()" />
+
+  </form>
+
+  <script type="text/javascript"
+           src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['sankey']}]}">
+  </script>
+
+  <div id="sankey_multiple" style="width: 1000px; height: 600px;"></div>
+
+  <script type="text/javascript">
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      console.log('in drawChart')
+      //console.log(document.getElementById('DakotaToSect2p1').value)
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'From');
+      data.addColumn('string', 'To');
+      data.addColumn('number', 'Count');
+      data.addRows([
+        ['Dakota','Section2.1', Number(document.getElementById('DakotaToSect2p1').value)],
+        ['Dakota','Section2.2', Number(document.getElementById('DakotaToSect2p2').value)],
+        ['Dakota','Section2.3', Number(document.getElementById('DakotaToSect2p3').value)],
+        ['Dakota','Section2.4', Number(document.getElementById('DakotaToSect2p4').value)],
+
+        ['Kallang','Section2.1', Number(document.getElementById('KallangToSect2p1').value)],
+        ['Kallang','Section2.2', Number(document.getElementById('KallangToSect2p2').value)],
+        ['Kallang','Section2.3', Number(document.getElementById('KallangToSect2p3').value)],
+        ['Kallang','Section2.4', Number(document.getElementById('KallangToSect2p4').value)],
+
+        ['Mountbatten','Section2.1', Number(document.getElementById('MountbattenToSect2p1').value)],
+        ['Mountbatten','Section2.2', Number(document.getElementById('MountbattenToSect2p2').value)],
+        ['Mountbatten','Section2.3', Number(document.getElementById('MountbattenToSect2p3').value)],
+        ['Mountbatten','Section2.4', Number(document.getElementById('MountbattenToSect2p4').value)],
+
+        ['Stadium','Section2.1', Number(document.getElementById('StadiumToSect2p1').value)],
+        ['Stadium','Section2.2', Number(document.getElementById('StadiumToSect2p2').value)],
+        ['Stadium','Section2.3', Number(document.getElementById('StadiumToSect2p3').value)],
+        ['Stadium','Section2.4', Number(document.getElementById('StadiumToSect2p4').value)],
+
+      ]);
+
+      // Set chart options
+      // #000080 : dark blue
+      // #FFA500 : orange
+      // #ADD8E6 : light blue
+      // #FF69B4 : pink
+      var colors = ['#FF0000', '#000080', '#FFA500', '#ADD8E6', '#FF69B4', '#00FF00', '#0000FF', '#000000'];
+
+      var options = {
+        width: 800,
+        sankey: {
+          node: {
+            colors: colors
+          },
+        }
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.Sankey(document.getElementById('sankey_multiple'));
+      chart.draw(data, options);
+    }
+  </script>
+</body>
+</html>
