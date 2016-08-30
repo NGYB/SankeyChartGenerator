@@ -3,7 +3,7 @@
 
     <title>Mrt To Submtz Sankey Chart</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>-->
 </head>
 <body>
   <h1> Key in your parameters below: </h1>
@@ -21,6 +21,7 @@
       <input type="text" name="submtz" id='submtz' value="601" autofocus>
       <br>
       <br>
+
       <label for="DakotaToSect2p1">Number from Dakota to Section 2.1:</label>
       <input type="text" name="DakotaToSect2p1" id='DakotaToSect2p1' value="100" autofocus>
       <br>
@@ -51,6 +52,14 @@
   <div id="sankey_multiple" style="width: 1000px; height: 600px;"></div>
 
   <script type="text/javascript">
+    d3.csv("/static/20150809_test.csv", function(csv){
+       //console.log("csv read");
+       console.log(csv.length);
+       console.log(csv[0]);
+       console.log(csv[0]['submtz']);
+       console.log(csv[0]['mrtStn1']);
+       //_.findIndex(users, function(o) { return o.user == 'barney'; });
+     });
 
     google.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -89,13 +98,6 @@
       chart.draw(data, options);
     }
 
-    d3.csv("/static/20150809_test.csv", function(csv){
-       //console.log("csv read");
-       console.log(csv.length);
-       console.log(csv[0]);
-       console.log(csv[0]['submtz']);
-       console.log(csv[0]['mrtStn1']);
-     });
   </script>
 
 </body>
