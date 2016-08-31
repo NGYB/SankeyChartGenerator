@@ -3,7 +3,8 @@
 
     <title>Mrt To Submtz Sankey Chart</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+
 </head>
 <body>
   <h1> Key in your parameters below: </h1>
@@ -18,24 +19,7 @@
       <input type="text" name="time_end" id='time_end' value="19:00:00" autofocus>
       <br>
       <label for="submtz">Submtz:</label>
-      <input type="text" name="submtz" id='submtz' value="601" autofocus>
-      <br>
-      <br>
-
-      <label for="DakotaToSect2p1">Number from Dakota to Section 2.1:</label>
-      <input type="text" name="DakotaToSect2p1" id='DakotaToSect2p1' value="100" autofocus>
-      <br>
-      <br>
-      <label for="KallangToSect2p1">Number from Kallang to Section 2.1:</label>
-      <input type="text" name="KallangToSect2p1" id='KallangToSect2p1' value="100" autofocus>
-      <br>
-      <br>
-      <label for="MountbattenToSect2p1">Number from Mountbatten to Section 2.1:</label>
-      <input type="text" name="MountbattenToSect2p1" id='MountbattenToSect2p1' value="100" autofocus>
-      <br>
-      <br>
-      <label for="StadiumToSect2p1">Number from Stadium to Section 2.1:</label>
-      <input type="text" name="StadiumToSect2p1" id='StadiumToSect2p1' value="100" autofocus>
+      <input type="text" name="submtz" id='submtz' value="612" autofocus>
       <br>
       <br>
 
@@ -52,50 +36,58 @@
   <div id="sankey_multiple" style="width: 1000px; height: 600px;"></div>
 
   <script type="text/javascript">
-    d3.csv("/static/20150809_test.csv", function(csv){
-       //console.log("csv read");
-       console.log(csv.length);
-       console.log(csv[0]);
-       console.log(csv[0]['submtz']);
-       console.log(csv[0]['mrtStn1']);
-       //_.findIndex(users, function(o) { return o.user == 'barney'; });
-     });
 
-    google.setOnLoadCallback(drawChart);
     function drawChart() {
       console.log('in drawChart');
-      //console.log(document.getElementById('DakotaToSect2p1').value)
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'From');
-      data.addColumn('string', 'To');
-      data.addColumn('number', 'Count');
-      data.addRows([
-        ['Dakota','Section2.1', Number(document.getElementById('DakotaToSect2p1').value)],
-        ['Kallang','Section2.1', Number(document.getElementById('KallangToSect2p1').value)],
-        ['Mountbatten','Section2.1', Number(document.getElementById('MountbattenToSect2p1').value)],
-        ['Stadium','Section2.1', Number(document.getElementById('StadiumToSect2p1').value)],
 
-      ]);
+      d3.csv("../static/20150809_test.csv", function(csv){
+         //console.log("csv read");
+         //console.log(csv.length);
+        //  console.log(csv[0]);
+         //console.log(csv[0]['submtz']);
+         //console.log(csv[0]['mrtStn1']);
+         var submtz = document.getElementById('submtz').value
+         var submtz_ind = _.findIndex(csv, function(o) { return o.submtz == submtz; });
+         console.log(submtz_ind);
 
-      // Set chart options
-      // #000080 : dark blue
-      // #FFA500 : orange
-      // #ADD8E6 : light blue
-      // #FF69B4 : pink
-      var colors = ['#FF0000', '#000080', '#FFA500', '#ADD8E6', '#FF69B4', '#00FF00', '#0000FF', '#000000'];
+         mrtStn1 = csv[submtz_ind]['mrtStn1'];
+         var count1 = csv[submtz_ind]['count1'];
+         var mrtStn2 = csv[submtz_ind]['mrtStn2'];
+         var count2 = csv[submtz_ind]['count2'];
 
-      var options = {
-        width: 800,
-        sankey: {
-          node: {
-            colors: colors
-          },
-        }
-      };
+         console.log(mrtStn1);
+         console.log(count1);
+         //google.setOnLoadCallback(drawChart);  // drawchart function will be called when the document is fully loaded
 
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.Sankey(document.getElementById('sankey_multiple'));
-      chart.draw(data, options);
+         var data = new google.visualization.DataTable();
+         data.addColumn('string', 'From');
+         data.addColumn('string', 'To');
+         data.addColumn('number', 'Count');
+         data.addRows([
+           [mrtStn1, submtz, Number(count1)],
+           [mrtStn2, submtz, Number(count2)],
+         ]);
+
+         // Set chart options
+         // #000080 : dark blue
+         // #FFA500 : orange
+         // #ADD8E6 : light blue
+         // #FF69B4 : pink
+         var colors = ['#FF0000', '#000080', '#FFA500', '#ADD8E6', '#FF69B4', '#00FF00', '#0000FF', '#000000'];
+
+         var options = {
+           width: 800,
+           sankey: {
+             node: {
+               colors: colors
+             },
+           }
+         };
+
+         // Instantiate and draw our chart, passing in some options.
+         var chart = new google.visualization.Sankey(document.getElementById('sankey_multiple'));
+         chart.draw(data, options);
+      });
     }
 
   </script>
